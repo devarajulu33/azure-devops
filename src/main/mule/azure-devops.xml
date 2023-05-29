@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="ccc69572-567c-4d4e-b1e5-9a3cd4cbaa8a" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="azure-devopsFlow" doc:id="ee93e43a-7317-4c16-8508-fce07805818c" >
+		<http:listener doc:name="Listener" doc:id="b6e20681-68de-46e8-b21b-abd5f149f2d7" config-ref="HTTP_Listener_config" path="/azure-devops"/>
+		<set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;	"message": "Success"&#10;	&#10;}]' doc:name="Set Payload" doc:id="56751f37-71ed-43ad-9681-836a58569948" />
+		<logger level="INFO" doc:name="Logger" doc:id="22c0c77c-6fc6-4b92-817e-9490511b1a20" message="Returned payload for azure-devops sample #[payload]"/>
+	</flow>
+</mule>
